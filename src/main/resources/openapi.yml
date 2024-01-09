@@ -1816,6 +1816,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestError'
+  /jobs/{jobId}:
+    get:
+      tags:
+        - job
+      operationId: getJob
+      summary: Get a job by ID
+      description: Returns the job or a 404 error.
+      parameters:
+        - name: jobId
+          in: path
+          description: The ID of the vet.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+      responses:
+        200:
+          description: Job details found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        404:
+          description: Vet not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
 components:
   schemas:
     RestError:
@@ -2042,6 +2096,30 @@ components:
             - id
             - type
             - visits
+    Job:
+      title: Job
+      description: A Job.
+      allOf:
+        - type: object
+          properties:
+            id:
+              title: ID
+              description: The ID of the job.
+              type: integer
+              format: int32
+              minimum: 0
+              example: 1
+              readOnly: true
+            name:
+              title: Job Name
+              description: The name of the job.
+              type: string
+              maxLength: 30
+              example: my job
+              readOnly: true
+          required:
+            - id
+            - name
     VetFields:
       title: VetFields
       description: Editable fields of a veterinarian.
