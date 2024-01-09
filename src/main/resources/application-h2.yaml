@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    password: ''
+    url: jdbc:h2:mem:petclinic;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      data-locations: classpath*:db/schema/data-h2.sql
+      schema-locations: classpath*:db/schema/schema-h2.sql
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.jdbc: DEBUG

@@ -1,0 +1,13 @@
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate.SQL: DEBUG
+
+server:
+  port: 8080
+spring:
+  messages:
+    basename: messages/messages
+  profiles:
+    active:
+      - h2
