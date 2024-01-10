@@ -1,8 +1,7 @@
-package petclinic.job;
+package petclinic.scheduling;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
-@RequestMapping("api/sched")
-public class JobController implements JobsApi {
+@RequestMapping("api")
+public class schedulingController implements JobsApi {
 
     @Resource
     private TaskScheduler taskScheduler;
@@ -38,7 +37,7 @@ public class JobController implements JobsApi {
         }, Instant.now());
         log.info("after submit");
 
-        return new ResponseEntity<>(jobDto, HttpStatus.OK);
+        return ResponseEntity.ok(jobDto);
     }
 
 }

@@ -1870,6 +1870,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestError'
+  /tasks/{Id}:
+    get:
+      operationId: getTask
+      summary: Get a task by ID
+      description: Returns the job or a 404 error.
+      parameters:
+        - name: Id
+          in: path
+          description: The ID of the task.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+      responses:
+        200:
+          description: task details found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        404:
+          description: Vet not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
 components:
   schemas:
     RestError:
@@ -2116,6 +2168,30 @@ components:
               type: string
               maxLength: 30
               example: my job
+              readOnly: true
+          required:
+            - id
+            - name
+    Task:
+      title: Task
+      description: A Task.
+      allOf:
+        - type: object
+          properties:
+            id:
+              title: ID
+              description: The ID of the Task.
+              type: integer
+              format: int32
+              minimum: 0
+              example: 1
+              readOnly: true
+            name:
+              title: Task Name
+              description: The name of the Task.
+              type: string
+              maxLength: 30
+              example: my Task
               readOnly: true
           required:
             - id
