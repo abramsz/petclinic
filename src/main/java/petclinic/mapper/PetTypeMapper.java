@@ -1,7 +1,6 @@
 package petclinic.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import petclinic.domain.PetType;
 import petclinic.rest.dto.PetTypeDto;

@@ -23,7 +23,6 @@ public class PetTypeRestController implements PettypesApi {
     public ResponseEntity<List<PetTypeDto>> listPetTypes() {
         System.out.println("listPetTypes");
         var petTypes = petTypeRepository.query();
-
-        return new ResponseEntity<>(PetTypeMapper.INSTANCE.toPetTypeDtos(petTypes), HttpStatus.OK);
+        return ResponseEntity.ok(PetTypeMapper.INSTANCE.toPetTypeDtos(petTypes));
     }
 }
